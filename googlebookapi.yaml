@@ -9,7 +9,7 @@ metadata:
 spec:
   containers:
   - name: bookapi
-    image: googlebookapi:latest
+    image: google_book_api:latest
     ports:
       - containerPort: 9999
     env:
