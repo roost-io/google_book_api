@@ -1,4 +1,4 @@
-APP ?= googlebookapi
+APP ?= google_book_api
 IMAGE_VERSION ?= latest
 IMAGE ?= ${APP}:${IMAGE_VERSION}
 HOSTNAME=$(shell hostname)
@@ -19,7 +19,6 @@ deploy:
 .PHONY: dockerise
 dockerise:
 	docker build -f Dockerfile -t ${IMAGE} .
-	${shell pwd}/../push_image.sh "${IMAGE}"
 
 .PHONY: clean
 clean: clean_bin

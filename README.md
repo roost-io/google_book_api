@@ -1,9 +1,11 @@
 # GoogleBookAPI Example
 
-GoogleBookAPI is built on top of [flogo](https://www.flogo.io/) to demonstrate use of ZBIO messaging platform in a flow based application.
+GoogleBookAPI is built on top of [flogo](https://www.flogo.io/), a flow based application.
 
 Upon launch for first time, the application creates a topic `googleBookAPI`. 
 Every time a request is made by the user to retrieve any book detail, activity logs are generated and sent to ZBIO. These messages can be consumed by another component of the same application or a different micro-service in ZKE cluster.
+
+>Note: ZBIO service broker should be deployed and enabled. (app runs without tracing with ZBIO)
 
 ## How to run this application
 
@@ -16,7 +18,7 @@ Every time a request is made by the user to retrieve any book detail, activity l
   * Removes the application binary [googlebookapi](googlebookapi)
   * Builds an executable by compiling the Go/Flogo code [src/main.go](src/main.go)
   * Builds an image using the app binary [src/Dockerfile](src/Dockerfile)
-  * Deploys the image to ZKE Cluster [src/googlebookapi.yaml](src/googlebookapi.yaml)
+  * Deploys the image to the kubernetes Cluster [src/googlebookapi.yaml](src/googlebookapi.yaml)
 
 ###### Using RKT Konsole to run application
 
@@ -46,18 +48,17 @@ kubectl logs service/googlebookapi --namespace default --tail 400
 
 > Using any browser 
 * For single-node cluster, try roost-worker instead of roost-controlplane
-* Open http://roost-controlplane:30045/books/<isbn\>
-* OR For a single node cluster, open http://roost-controlplane:30045/books/<isbn\>
+* Open http://roost-worker:30045/books/<isbn\>
+* OR For a multinode node cluster, open http://roost-controlplane:30045/books/<isbn\>
 >>sample URL: http://roost-controlplane:30045/books/9788126568772
->>sample URL for single node cluster: http://roost-worker:30045/books/9788126568772
 
 > Using RKT Konsole
   * For single-node cluster, try roost-worker instead of roost-controlplane
-  * curl http://roost-controlplane:30045/books/<isbn\>
-  >>sample URL: http://roost-controlplane:30045/books/9788126568772
-  * For a single node cluster, use roost-worker instead of roost-controlplane
   * curl http://roost-worker:30045/books/<isbn\>
   >>sample URL: http://roost-worker:30045/books/9788126568772
+  * For a multi node cluster, use roost-controlplane instead of roost-worker
+  * curl http://roost-controlplane:30045/books/<isbn\>
+  >>sample URL: http://roost-controlplane:30045/books/9788126568772
 
 ``` 
 Raise any issue or feature request using RDE Help
