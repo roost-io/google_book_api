@@ -20,7 +20,7 @@ const (
 	listenPort  string = "5050"
 	usdCurrency string = "USD"
 	topicName   string = "googleBookAPI"
-	zbioEnabled bool   = true
+	zbioEnabled bool   = false
 )
 
 // Tip: USE ENV[SERVICE_ADDRESS] to set service endpoint
@@ -115,6 +115,9 @@ func initZBIO() {
 
 func sendMessageToZBIO(ctx activity.Context, messages []zb.Message) {
 	// send messages only if topic exists zbClient.DescribeTopics([]string{topicName})
+	if !zbioEnabled {
+		return
+	}
 	var topicFound = true
 	if topicFound {
 		newMessageStatus, err := zbclient.NewMessage(messages)
