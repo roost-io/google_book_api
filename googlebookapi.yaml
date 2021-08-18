@@ -4,7 +4,7 @@ metadata:
   name: zbio-sample-googlebookapi
   labels:
     app: zbio-sample-googlebookapi
-    owner: zbio
+    owner: zbioxx
     managed-by: roost
 spec:
   containers:

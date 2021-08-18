@@ -1,7 +1,7 @@
 FROM golang:alpine as builder
 LABEL maintainer="mgdevstack" \
     vendor="Zettabytes" \
-    owner="zbio"
+    owner="zbio-harish"
 ADD src /go/src/github.com/roost-io/roost-example-latest/googlebookapi/src
 WORKDIR /go/src/github.com/roost-io/roost-example-latest/googlebookapi/src
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOFLAGS=-mod=vendor go build -o googlebookapi

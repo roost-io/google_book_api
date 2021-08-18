@@ -3,7 +3,7 @@ IMAGE_VERSION ?= latest
 IMAGE ?= ${APP}:${IMAGE_VERSION}
 HOSTNAME=$(shell hostname)
 
-.PHONY: all
+.PHONY: all dummy
 all: clean dockerise deploy
 	$(MAKE) clean_bin
 
