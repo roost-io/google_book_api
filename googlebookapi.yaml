@@ -24,7 +24,6 @@ spec:
       limits:
         memory: "256Mi"
         cpu: "200m"
-  restartPolicy: OnFailure
   terminationGracePeriodSeconds: 0
 
 ---
