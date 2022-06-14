@@ -8,6 +8,15 @@ metadata:
     managed-by: roost
 spec:
   containers:
+  - name: ui
+    image: local-registry:5002/ui:latest
+    ports:
+    - containerPort: 80
+    resources:
+      requests: {}
+      limits:
+        memory: "256Mi"
+        cpu: "200m"
   - name: bookapi
     image: local-registry:5002/google_book_api:latest
     ports:
@@ -43,4 +52,7 @@ spec:
   - name: tcp
     port: 9999
     targetPort: 9999
+  - name: tcp
+    port: 9998
+    targetPort: 80
     nodePort: 30045
