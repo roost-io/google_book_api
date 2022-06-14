@@ -12,6 +12,6 @@ LABEL maintainer="mgdevstack" \
     vendor="Zettabytes" \
     owner="zbio"
 COPY  --from=builder /go/ui/ui-app /ui-app
-EXPOSE 5200
+EXPOSE 80
 USER nobody
 ENTRYPOINT ["/ui-app"]
