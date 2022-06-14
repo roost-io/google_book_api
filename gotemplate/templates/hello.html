@@ -2,20 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Website</title>
+    <title>ISBN Website</title>
     <style type="text/css" media="screen">
         @import url("./css/style.css");
     </style>
   </head>
-
+  <!-- 9788126568772 -->
   <body>
     <h1>ISBN Search Page</h1>
-    <div class="search">
-        <input type="text" placeholder="Search.." class="searchbox">
-        <div class="isbn">
-            <input type="submit" value="9788126568772" class="isbn-example">
-            <input type="submit" value="9788126568772" class="isbn-example">
-        </div>
+    <div class="flex">
+      <form class="search"  >
+        <input type="text" placeholder="Search.." class="searchbox" id="myForm">
+      </form>
+      <button onclick="myFunction()" class="button">Go</button>
     </div>
+
+      <script>
+        function myFunction() {
+          var x = document.getElementById("myForm").value;
+          console.log(x);
+          window.location.href = "http://roost-worker:30045/books/" + x;
+        }
+        </script>
   </body>
 </html>

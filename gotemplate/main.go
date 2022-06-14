@@ -19,5 +19,5 @@ func main() {
 	fs := http.FileServer(http.Dir("templates"))
 	http.Handle("/css/", fs)
 	// http.Handle("/js/", fs)
-	http.ListenAndServe(":9999", nil)
+	http.ListenAndServe(":5200", nil)
 }
