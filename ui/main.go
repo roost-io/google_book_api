@@ -21,11 +21,8 @@ func main() {
 	http.FileServer(http.FS(res))
 	http.HandleFunc("/", homeHandler)
 	fs := http.FileServer(http.Dir("templates"))
-	http.Handle("/css/", http.StripPrefix("/css", fs))
+	http.Handle("/css/", fs)
 
-	// http.Handle("/", http.FileServer(http.Dir("css/")))
-	// fs := http.FileServer(http.Dir("templates"))
-	// http.Handle("/css/", fs)
 	// http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("templates"))))
 	// http.Handle("/", http.FileServer(http.Dir("css/")))
 	// http.Handle("/ui/", http.StripPrefix("templates/css/", http.FileServer(http.Dir("templates/css"))))

@@ -4,25 +4,57 @@
     <meta charset="utf-8" />
     <title>ISBN Website</title>
     <style type="text/css" media="screen">
-        @import url("./css/style.css");
+      @import url("./css/style.css");
     </style>
   </head>
   <!-- 9788126568772 -->
   <body>
     <h1>ISBN Search Page</h1>
-    <div class="flex">
-      <form class="search"  >
-        <input type="text" placeholder="Search.." class="searchbox" id="myForm">
-      </form>
-      <button onclick="myFunction()" class="button">Go</button>
+    <div>
+      <div class="flex">
+        <input
+          type="text"
+          placeholder="Search.."
+          class="searchbox"
+          id="myForm"
+        />
+        <button onclick="myFunction()" class="button" id="myBtn">Go</button>
+      </div>
+      <div class="example">
+        <input
+          type="text"
+          value="9788126568773"
+          class="isbn-example"
+          id="example1"
+          onclick="exampleFunction1()"
+        />
+        <input
+          type="text"
+          value="9788126568772"
+          class="isbn-example"
+          id="example2"
+          onclick="exampleFunction2()"
+        />
+      </div>
     </div>
 
-      <script>
-        function myFunction() {
-          var x = document.getElementById("myForm").value;
-          console.log(x);
-          window.location.href = " http://roost-worker:30045/books/" + x;
-        }
-        </script>
+    <script>
+      function myFunction() {
+        var y = document.getElementById("myForm").value;
+        console.log(y);
+        window.location.href = " http://roost-worker:30045/books/" + y;
+       
+      }
+      function exampleFunction1() {
+        var y = document.getElementById("example1").value;
+        console.log(y);
+        window.location.href = " http://roost-worker:30045/books/" + y;
+      }
+      function exampleFunction2() {
+        var y = document.getElementById("example2").value;
+        console.log(y);
+        window.location.href = " http://roost-worker:30045/books/" + y;
+      }
+    </script>
   </body>
 </html>
