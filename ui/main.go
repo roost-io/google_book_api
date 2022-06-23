@@ -20,15 +20,5 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.FileServer(http.FS(res))
 	http.HandleFunc("/", homeHandler)
-	fs := http.FileServer(http.Dir("templates"))
-	http.Handle("/css/", fs)
-
-	// http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("templates"))))
-	// http.Handle("/", http.FileServer(http.Dir("css/")))
-	// http.Handle("/ui/", http.StripPrefix("templates/css/", http.FileServer(http.Dir("templates/css"))))
-	// http.HandleFunc("/css/", func(response http.ResponseWriter, request *http.Request) {
-	// 	http.ServeFile(response, request, "/templates/css/")
-	// })
-
 	http.ListenAndServe(":8084", nil)
 }
