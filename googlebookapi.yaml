@@ -49,7 +49,7 @@ spec:
   selector:
     app: zbio-sample-googlebookapi
   ports:
-  - name: tcp
+  - name: bookapi-tcp
     port: 9999
     targetPort: 9999
   - name: ui-tcp
