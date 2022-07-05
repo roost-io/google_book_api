@@ -111,17 +111,12 @@
       function myFunction() {
         var y = document.getElementById("myForm").value;
         console.log(y);
-        // (async () => {
-        //   const res = await fetch(" http://roost-worker:30045/books/" + y);
-        //   const answer = await res.json();
-        //   console.log("response",answer);
-        // })();
-
-        var xhr = new XMLHttpRequest(); 
-        xhr.onload = success; // call success function if request is successful
-        xhr.onerror = error; // call error function if request failed
-        xhr.open("GET", "http://roost-worker:30045/books/" + y); // open a GET request
-        xhr.send(); // send the request to the server.
+          console.log(window.env.BOOKAPI_ENDPOINT);
+          var xhr = new XMLHttpRequest();
+          xhr.onload = success; 
+          xhr.onerror = error; 
+          xhr.open("GET", window.env.BOOKAPI_ENDPOINT+"/books/" + y); 
+          xhr.send();
       }
       function exampleFunction1() {
         var y = document.getElementById("example1").value;

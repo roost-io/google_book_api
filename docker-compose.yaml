@@ -11,8 +11,8 @@ services:
     ports: 
       - "30045:9999"
     environment:
-      REACT_APP_UI_ENDPOINT:  "${ROOST_CLUSTER_IP}:30040"
-      REACT_APP_BOOKAPI_ENDPOINT: "${ROOST_CLUSTER_IP}:30042"
+      UI_ENDPOINT:  "${ROOST_CLUSTER_IP}:30040"
+      BOOKAPI_ENDPOINT: "${ROOST_CLUSTER_IP}:30042"
     links:
       - ui
       - google_book_api
