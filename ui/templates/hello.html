@@ -36,13 +36,11 @@
         border-radius: 4px;
         color: #3c4043;
         font-size: 16px;
-        /* margin: 11px 4px; */
-        /* padding: 0 16px; */
         line-height: 27px;
         height: 46px;
         min-width: 54px;
         text-align: center;
-        cursor: pointer;
+        margin-left: 20px;
       }
       .flex {
         margin-left: 50px;
@@ -53,9 +51,11 @@
       }
 
       .example {
-        margin-left: 420px;
-        margin-top: 40px;
+       display: flex;
+       justify-content: center;
+       margin-top: 40px;
       }
+    
       .button {
         margin-left: 8px;
         margin-top: 30px;
@@ -76,25 +76,14 @@
           type="text"
           placeholder="Search.."
           class="searchbox"
-          id="myForm"
+          id="UserEnteredISBN"
         />
-        <button onclick="myFunction()" class="button" id="myBtn">Go</button>
+        <button onclick="callGoogleBookAPI()" class="button" id="myBtn">Go</button>
       </div>
       <div class="example">
-        <input
-          type="text"
-          value="9788126568773"
-          class="isbn-example"
-          id="example1"
-          onclick="exampleFunction1()"
-        />
-        <input
-          type="text"
-          value="9788126568772"
-          class="isbn-example"
-          id="example2"
-          onclick="exampleFunction2()"
-        />
+        <div class="isbn-example">ISBN Examples:</div>
+        <span class="isbn-example"> 9788126568772</span>
+        <span class="isbn-example"> 9788126568773</span>
       </div>
     </div>
 
@@ -108,8 +97,8 @@
       function error(err) {
         console.log("Request Failed", err); //error details will be in the "err" object
       }
-      function myFunction() {
-        var y = document.getElementById("myForm").value;
+      function callGoogleBookAPI() {
+        var y = document.getElementById("UserEnteredISBN").value;
         console.log(y);
           console.log(window.env.BOOKAPI_ENDPOINT);
           var xhr = new XMLHttpRequest();
@@ -117,16 +106,6 @@
           xhr.onerror = error; 
           xhr.open("GET", window.env.BOOKAPI_ENDPOINT+"/books/" + y); 
           xhr.send();
-      }
-      function exampleFunction1() {
-        var y = document.getElementById("example1").value;
-        console.log(y);
-        window.location.href = " http://roost-worker:30045/books/" + y;
-      }
-      function exampleFunction2() {
-        var y = document.getElementById("example2").value;
-        console.log(y);
-        window.location.href = " http://roost-worker:30045/books/" + y;
       }
     </script>
   </body>
