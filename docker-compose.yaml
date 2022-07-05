@@ -3,17 +3,12 @@ services:
   ui:
     build: ui
     ports:
-      - "30045:8080"
-  googlebookapi:
-    build: google_book_api
-    tty: true
-    stdin_open: true
-    ports: 
-      - "30045:9999"
-    environment:
-      UI_ENDPOINT:  "${ROOST_CLUSTER_IP}:30040"
-      BOOKAPI_ENDPOINT: "${ROOST_CLUSTER_IP}:30042"
+      - "8084:8084"
     links:
-      - ui
-      - google_book_api
- 
+      - googlebookapi
+    environment:
+      BOOKAPI_ENDPOINT: "localhost:8086"
+  googlebookapi:
+    build: .
+    ports: 
+      - "8086:9999"
