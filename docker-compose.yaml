@@ -2,11 +2,18 @@ version: "3.9"
 services:
   ui:
     build: ui
+    ports:
+      - "30045:8080"
+  googlebookapi:
+    build: google_book_api
     tty: true
     stdin_open: true
     ports: 
-      - "30045:8084"
+      - "30045:9999"
     environment:
-      REACT_APP_BALLOT_ENDPOINT:  "${ROOST_CLUSTER_IP}:30045"
+      REACT_APP_UI_ENDPOINT:  "${ROOST_CLUSTER_IP}:30040"
+      REACT_APP_BOOKAPI_ENDPOINT: "${ROOST_CLUSTER_IP}:30042"
     links:
       - ui
+      - google_book_api
+ 
