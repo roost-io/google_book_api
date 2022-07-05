@@ -99,10 +99,29 @@
     </div>
 
     <script>
+      function success() {
+        var data = JSON.parse(this.responseText); //parse the string to JSON
+        console.log(data);
+      }
+
+      // function to handle error
+      function error(err) {
+        console.log("Request Failed", err); //error details will be in the "err" object
+      }
       function myFunction() {
         var y = document.getElementById("myForm").value;
         console.log(y);
-        window.location.href = " http://roost-worker:30045/books/" + y;
+        // (async () => {
+        //   const res = await fetch(" http://roost-worker:30045/books/" + y);
+        //   const answer = await res.json();
+        //   console.log("response",answer);
+        // })();
+
+        var xhr = new XMLHttpRequest(); 
+        xhr.onload = success; // call success function if request is successful
+        xhr.onerror = error; // call error function if request failed
+        xhr.open("GET", "http://roost-worker:30045/books/" + y); // open a GET request
+        xhr.send(); // send the request to the server.
       }
       function exampleFunction1() {
         var y = document.getElementById("example1").value;

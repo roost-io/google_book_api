@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  ui:
+    build: ui
+    tty: true
+    stdin_open: true
+    ports: 
+      - "30045:8084"
+    environment:
+      REACT_APP_BALLOT_ENDPOINT:  "${ROOST_CLUSTER_IP}:30045"
+    links:
+      - ui
