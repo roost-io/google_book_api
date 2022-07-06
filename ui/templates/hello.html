@@ -12,6 +12,10 @@
         text-align: center;
         margin-top: 100px;
       }
+      h3 {
+        text-align: center;
+        margin-top: 100px;
+      }
       .search {
         text-align: center;
         position: relative;
@@ -64,6 +68,41 @@
         border: 0px;
         font-size: 18px;
       }
+      table {
+        display: none;
+        border-collapse: collapse;
+        background-color: white;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        width: 45%;
+      }
+      th {
+        background-color: #d0d0d0;
+        padding: 0.75rem 2rem;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        font-size: 0.8rem;
+        font-weight: 900;
+      }
+
+      td {
+        font-size: 0.9rem;
+        padding: 1rem 2rem;
+        background-color: #f0f0f0;
+      }
+      #publishedDate {
+        text-align: center;
+      }
+      #title {
+        text-align: center;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f3f8fe;
+      }
     </style>
   </head>
   <!-- 9788126568772 -->
@@ -91,44 +130,65 @@
       </div>
     </div>
 
-    <pre id="jsonResponse"></pre>
+    <h3 id="jsonResponse"></h3>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Published Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="description"></td>
+          <td id="publishedDate"></td>
+          <td id="title"></td>
+        </tr>
+      </tbody>
+    </table>
     <script>
-            function error(err) {
-              console.log("blsjhds")
-          console.log('Request Failed', err); //error details will be in the "err" object
+
+        function callGoogleBookAPI() {
+          var y = document.getElementById("UserEnteredISBN").value;
+          console.log("ISBN",y);
+
+          var EndpointEnvVar = {{.apiEndpoint}};
+
+          console.log("endpoint",EndpointEnvVar);
+
+            var req = new XMLHttpRequest();
+            req.overrideMimeType("application/json");
+            req.open('GET', "http://"+EndpointEnvVar+"/books/" + y, true);
+            const table = document.getElementById("table");
+            req.onload  = function() {
+              try {
+                table.style.display = "block";
+                var jsonResponse = JSON.parse(req.responseText);
+                document.getElementById("jsonResponse").innerHTML = "Details of ISBN "+ y;
+                document.getElementById("description").innerHTML = jsonResponse.description;
+                document.getElementById("publishedDate").innerHTML =jsonResponse.publishedDate;
+                document.getElementById("title").innerHTML = jsonResponse.title;
+
+      } catch (e) {
+                document.getElementById("jsonResponse").innerHTML = "Invalid ISBN";
+                const err =  document.getElementById("jsonResponse");
+                err.style.color="#ff0000";
+                table.style.display = "none";
+              console.log("errrr");
       }
-            function callGoogleBookAPI() {
-              var y = document.getElementById("UserEnteredISBN").value;
-              console.log("ISBN",y);
+              console.log(jsonResponse);
+            };
+            req.send(null);
 
-              var EndpointEnvVar = {{.apiEndpoint}};
-
-              console.log("endpoint",EndpointEnvVar);
-
-                var req = new XMLHttpRequest();
-                req.overrideMimeType("application/json");
-                req.open('GET', "http://"+EndpointEnvVar+"/books/" + y, true);
-                req.onerror = error;
-                req.onload  = function() {
-                  try {
-                    var jsonResponse = JSON.parse(req.responseText);
-                    document.getElementById("jsonResponse").innerHTML = JSON.stringify(jsonResponse);
-          } catch (e) {
-                    document.getElementById("jsonResponse").innerHTML = "Value of ISBN is Incorrect";
-            console.log("errrr");
-          }
-                  console.log(jsonResponse);
-                };
-                req.send(null);
-
-                const targetDiv = document.getElementById("target");
-                const btn = document.getElementById("toggle");
-                if (targetDiv.style.display !== "none") {
-                  targetDiv.style.display = "none";
-                } else {
-                  targetDiv.style.display = "block";
-                }
+            const targetDiv = document.getElementById("target");
+            const btn = document.getElementById("toggle");
+            if (targetDiv.style.display !== "none") {
+              targetDiv.style.display = "none";
+            } else {
+              targetDiv.style.display = "block";
             }
+        }
     </script>
   </body>
 </html>
