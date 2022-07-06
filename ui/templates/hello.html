@@ -93,32 +93,42 @@
 
     <pre id="jsonResponse"></pre>
     <script>
-      function callGoogleBookAPI() {
-        var y = document.getElementById("UserEnteredISBN").value;
-        console.log("ISBN",y);
-
-        var EndpointEnvVar = {{.apiEndpoint}};
-
-        console.log("endpoint",EndpointEnvVar);
-
-          var req = new XMLHttpRequest();
-          req.overrideMimeType("application/json");
-          req.open('GET', "http://"+EndpointEnvVar+"/books/" + y, true);
-          req.onload  = function() {
-            var jsonResponse = JSON.parse(req.responseText);
-            document.getElementById("jsonResponse").innerHTML = JSON.stringify(jsonResponse);
-            console.log(jsonResponse);
-          };
-          req.send(null);
-
-          const targetDiv = document.getElementById("target");
-          const btn = document.getElementById("toggle");
-          if (targetDiv.style.display !== "none") {
-            targetDiv.style.display = "none";
-          } else {
-            targetDiv.style.display = "block";
-          }
+            function error(err) {
+              console.log("blsjhds")
+          console.log('Request Failed', err); //error details will be in the "err" object
       }
+            function callGoogleBookAPI() {
+              var y = document.getElementById("UserEnteredISBN").value;
+              console.log("ISBN",y);
+
+              var EndpointEnvVar = {{.apiEndpoint}};
+
+              console.log("endpoint",EndpointEnvVar);
+
+                var req = new XMLHttpRequest();
+                req.overrideMimeType("application/json");
+                req.open('GET', "http://"+EndpointEnvVar+"/books/" + y, true);
+                req.onerror = error;
+                req.onload  = function() {
+                  try {
+                    var jsonResponse = JSON.parse(req.responseText);
+                    document.getElementById("jsonResponse").innerHTML = JSON.stringify(jsonResponse);
+          } catch (e) {
+                    document.getElementById("jsonResponse").innerHTML = "Value of ISBN is Incorrect";
+            console.log("errrr");
+          }
+                  console.log(jsonResponse);
+                };
+                req.send(null);
+
+                const targetDiv = document.getElementById("target");
+                const btn = document.getElementById("toggle");
+                if (targetDiv.style.display !== "none") {
+                  targetDiv.style.display = "none";
+                } else {
+                  targetDiv.style.display = "block";
+                }
+            }
     </script>
   </body>
 </html>
