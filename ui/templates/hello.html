@@ -36,7 +36,6 @@
         border-radius: 4px;
         color: #3c4043;
         font-size: 16px;
-        line-height: 27px;
         height: 46px;
         min-width: 54px;
         text-align: center;
@@ -51,11 +50,11 @@
       }
 
       .example {
-       display: flex;
-       justify-content: center;
-       margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
       }
-    
+
       .button {
         margin-left: 8px;
         margin-top: 30px;
@@ -69,43 +68,56 @@
   </head>
   <!-- 9788126568772 -->
   <body>
-    <h1>ISBN Search Page</h1>
-    <div>
-      <div class="flex">
-        <input
-          type="text"
-          placeholder="Search.."
-          class="searchbox"
-          id="UserEnteredISBN"
-        />
-        <button onclick="callGoogleBookAPI()" class="button" id="myBtn">Go</button>
-      </div>
-      <div class="example">
-        <div class="isbn-example">ISBN Examples:</div>
-        <span class="isbn-example"> 9788126568772</span>
-        <span class="isbn-example"> 9788126568773</span>
+    <div id="target">
+      <h1>ISBN Search Page</h1>
+      <div>
+        <div class="flex">
+          <input
+            type="text"
+            placeholder="Search.."
+            class="searchbox"
+            id="UserEnteredISBN"
+          />
+          <button onclick="callGoogleBookAPI()" class="button" id="toggle">
+            Go
+          </button>
+        </div>
+
+        <div class="example">
+          <div class="isbn-example">ISBN Examples:</div>
+          <span class="isbn-example"> 9788126568772</span>
+          <span class="isbn-example"> 9788126568773</span>
+        </div>
       </div>
     </div>
 
+    <pre id="jsonResponse"></pre>
     <script>
-      function success() {
-        var data = JSON.parse(this.responseText); //parse the string to JSON
-        console.log(data);
-      }
-
-      // function to handle error
-      function error(err) {
-        console.log("Request Failed", err); //error details will be in the "err" object
-      }
       function callGoogleBookAPI() {
         var y = document.getElementById("UserEnteredISBN").value;
-        console.log(y);
-          console.log(window.env.BOOKAPI_ENDPOINT);
-          var xhr = new XMLHttpRequest();
-          xhr.onload = success; 
-          xhr.onerror = error; 
-          xhr.open("GET", window.env.BOOKAPI_ENDPOINT+"/books/" + y); 
-          xhr.send();
+        console.log("ISBN",y);
+
+        var EndpointEnvVar = {{.apiEndpoint}};
+
+        console.log("endpoint",EndpointEnvVar);
+
+          var req = new XMLHttpRequest();
+          req.overrideMimeType("application/json");
+          req.open('GET', "http://"+EndpointEnvVar+"/books/" + y, true);
+          req.onload  = function() {
+            var jsonResponse = JSON.parse(req.responseText);
+            document.getElementById("jsonResponse").innerHTML = JSON.stringify(jsonResponse);
+            console.log(jsonResponse);
+          };
+          req.send(null);
+
+          const targetDiv = document.getElementById("target");
+          const btn = document.getElementById("toggle");
+          if (targetDiv.style.display !== "none") {
+            targetDiv.style.display = "none";
+          } else {
+            targetDiv.style.display = "block";
+          }
       }
     </script>
   </body>
