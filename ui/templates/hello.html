@@ -10,11 +10,13 @@
       }
       h1 {
         text-align: center;
-        margin-top: 100px;
+        margin-top: 70px;
       }
       h3 {
         text-align: center;
-        margin-top: 100px;
+        margin-top: 55px;
+        text-decoration: underline;
+        text-decoration-color: black;
       }
       .search {
         text-align: center;
@@ -32,7 +34,6 @@
       }
       .isbn {
         display: flex;
-        margin-top: 10px;
       }
       .isbn-example {
         background-color: #f8f9fa;
@@ -56,7 +57,7 @@
       .example {
         display: flex;
         justify-content: center;
-        margin-top: 40px;
+        margin-top: 30px;
       }
 
       .button {
@@ -75,8 +76,8 @@
         text-align: left;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 30px;
-        width: 45%;
+        margin-top: 20px;
+        width: 55%;
       }
       th {
         background-color: #d0d0d0;
@@ -125,7 +126,7 @@
         <div class="example">
           <div class="isbn-example">ISBN Examples:</div>
           <span class="isbn-example"> 9788126568772</span>
-          <span class="isbn-example"> 9788126568773</span>
+          <span class="isbn-example">978-92-95055-02-5</span>
         </div>
       </div>
     </div>
@@ -151,12 +152,7 @@
 
         function callGoogleBookAPI() {
           var y = document.getElementById("UserEnteredISBN").value;
-          console.log("ISBN",y);
-
           var EndpointEnvVar = {{.apiEndpoint}};
-
-          console.log("endpoint",EndpointEnvVar);
-
             var req = new XMLHttpRequest();
             req.overrideMimeType("application/json");
             req.open('GET', "http://"+EndpointEnvVar+"/books/" + y, true);
@@ -169,25 +165,20 @@
                 document.getElementById("description").innerHTML = jsonResponse.description;
                 document.getElementById("publishedDate").innerHTML =jsonResponse.publishedDate;
                 document.getElementById("title").innerHTML = jsonResponse.title;
+                const err =  document.getElementById("jsonResponse");
+                err.style.color="black";
 
       } catch (e) {
                 document.getElementById("jsonResponse").innerHTML = "Invalid ISBN";
                 const err =  document.getElementById("jsonResponse");
                 err.style.color="#ff0000";
+                err.style.textDecoration="none";
                 table.style.display = "none";
               console.log("errrr");
       }
               console.log(jsonResponse);
             };
             req.send(null);
-
-            const targetDiv = document.getElementById("target");
-            const btn = document.getElementById("toggle");
-            if (targetDiv.style.display !== "none") {
-              targetDiv.style.display = "none";
-            } else {
-              targetDiv.style.display = "block";
-            }
         }
     </script>
   </body>
