@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  ui:
+    build: ui
+    ports:
+      - "8084:8084"
+    links:
+      - googlebookapi
+    environment:
+      BOOKAPI_ENDPOINT: "localhost:8086"
+  googlebookapi:
+    build: .
+    ports: 
+      - "8086:9999"
