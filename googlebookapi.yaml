@@ -11,7 +11,9 @@ spec:
   - name: ui
     image: local-registry:5002/ui:latest
     ports:
-    - containerPort: 80
+    - containerPort: 8084
+    env:
+      BOOKAPI_ENDPOINT: localhost:9999
     resources:
       requests: {}
       limits:
@@ -54,5 +56,5 @@ spec:
     targetPort: 9999
   - name: ui-tcp
     port: 9998
-    targetPort: 80
+    targetPort: 8084
     nodePort: 30045
