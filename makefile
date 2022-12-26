@@ -4,7 +4,7 @@ IMAGE ?= ${APP}:${IMAGE_VERSION}
 HOSTNAME=$(shell hostname)
 
 .PHONY: all
-all: clean dockerise deploy
+all: clean dockerise deploy loadbalancer
 	$(MAKE) clean_bin
 
 .PHONY: build
@@ -28,3 +28,7 @@ clean: clean_bin
 clean_bin:
 	- rm -f src/googlebookapi
 		
+.PHONY: loadbalancer
+loadbalancer:
+	kubectl expose pod zbio-sample-googlebookapi --type=LoadBalancer --name=my-service
+	
