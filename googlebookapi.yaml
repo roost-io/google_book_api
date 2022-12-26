@@ -43,4 +43,4 @@ spec:
   - name: tcp
     port: 9999
     targetPort: 9999
-    nodePort: 30045
+    # nodePort: 30045
