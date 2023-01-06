@@ -31,4 +31,4 @@ clean_bin:
 .PHONY: loadbalancer
 loadbalancer:
 	kubectl expose pod zbio-sample-googlebookapi --type=LoadBalancer --name=my-service
-	
+
