@@ -4,7 +4,7 @@ IMAGE ?= ${APP}:${IMAGE_VERSION}
 HOSTNAME=$(shell hostname)
 
 .PHONY: all
-all: clean dockerise deploy loadbalancer
+all: clean dockerise deploy
 	$(MAKE) clean_bin
 
 .PHONY: build
