@@ -27,4 +27,3 @@ clean: clean_bin
 .PHONY: clean_bin
 clean_bin:
 	- rm -f src/googlebookapi
-		

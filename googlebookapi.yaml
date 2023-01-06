@@ -9,7 +9,7 @@ metadata:
 spec:
   containers:
   - name: bookapi
-    image: local-registry:5002/google_book_api:latest
+    image: vivekklp/google_book_api:latest
     ports:
       - containerPort: 9999
     env:
@@ -43,4 +43,5 @@ spec:
   - name: tcp
     port: 9999
     targetPort: 9999
-    nodePort: 30045
+  type: LoadBalancer
+    # nodePort: 30045
