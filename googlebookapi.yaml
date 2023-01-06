@@ -43,4 +43,5 @@ spec:
   - name: tcp
     port: 9999
     targetPort: 9999
+  type: LoadBalancer
     # nodePort: 30045
